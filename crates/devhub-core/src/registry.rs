@@ -30,6 +30,22 @@ pub struct KnownDevice {
     pub verified: bool,
 }
 
+const fn hp(pid: u16, name: &'static str, transport: Transport) -> KnownDevice {
+    KnownDevice {
+        vid: 0x046D,
+        pid,
+        usage_page: Some(0xFF00),
+        usage: Some(0x0002),
+        kind: DeviceKind::Mouse,
+        vendor: "Logitech",
+        model: "pro-wireless",
+        name,
+        transport,
+        driver: DriverKind::Hidpp,
+        verified: false,
+    }
+}
+
 const fn mf(
     pid: u16,
     model: &'static str,
@@ -265,6 +281,12 @@ pub const KNOWN: &[KnownDevice] = &[
         driver: DriverKind::Lamzu,
         verified: false,
     },
+    // ---------------------------------------------------------------- マウス (Logitech HID++ 2.0)
+    // G PRO Wireless: 有線 C088 / Lightspeed 受信機 C539・C53A (PowerPlay)。HID++ 長レポート
+    // (0x11, FF00:0002)。公開仕様 (Solaar / libratbag) に基づく実装 — 実機未検証。
+    hp(0xC088, "Logitech G PRO Wireless", Transport::Wired),
+    hp(0xC539, "Logitech G PRO Wireless (LIGHTSPEED)", Transport::Wireless24G),
+    hp(0xC53A, "Logitech G PRO Wireless (PowerPlay)", Transport::Wireless24G),
 ];
 
 /// 列挙結果 (VID/PID/usage) に合う既知デバイス。`0xFFFF` のプレースホルダは一致しない。

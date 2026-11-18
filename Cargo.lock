@@ -1219,6 +1219,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "devhub-daemon"
+version = "0.1.0"
+dependencies = [
+ "devhub-core",
+ "devhub-hid",
+]
+
+[[package]]
 name = "devhub-hid"
 version = "0.1.0"
 dependencies = [

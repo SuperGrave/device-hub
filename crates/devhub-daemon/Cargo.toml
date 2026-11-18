@@ -1,0 +1,13 @@
+[package]
+name = "devhub-daemon"
+version = "0.1.0"
+edition = "2021"
+description = "Always-on background service: keeps Logitech HID++ device settings applied (G HUB replacement)."
+
+[[bin]]
+name = "devhub-daemon"
+path = "src/main.rs"
+
+[dependencies]
+devhub-core = { path = "../devhub-core" }
+devhub-hid = { path = "../devhub-hid" }
